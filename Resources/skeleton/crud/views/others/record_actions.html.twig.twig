@@ -1,0 +1,15 @@
+<div class="btn-toolbar" role="toolbar">
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "') }}" }}" class="btn btn-default btn-group" role="group">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+{% if ('edit' in actions) and (not hide_edit) %}
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_edit', { 'id': entity."~ identifier ~" }) }}" }}" class="btn btn-default btn-group" role="group">
+            <i class="fa fa-pencil-square-o"></i> Edit
+        </a>
+{% endif %}
+{% if ('delete' in actions) and (not hide_delete) %}
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_delete', { 'id': entity."~ identifier ~" }) }}" }}" class="btn btn-danger btn-group" role="group">
+            <i class="fa fa-trash-o"></i> Delete
+        </a>
+{% endif %}
+</div>

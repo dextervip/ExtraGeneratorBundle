@@ -1,0 +1,16 @@
+{% set route_name_prefix =  bundle|lower|replace({'bundle':''})~'_'~ route_name_prefix %}
+
+{% block extends %}
+{{ "{% extends '::base.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block body -%}" }}
+    <h1>{{ entity }} edit</h1>
+
+    {{ '{{ form(edit_form, {"attr": {"novalidate": "novalidate"}}) }}' }}
+
+    {% set hide_edit, hide_delete = true, false %}
+    {% include 'crud/views/others/record_actions.html.twig.twig' %}
+{{ "{% endblock %}" }}
+{% endblock body %}
