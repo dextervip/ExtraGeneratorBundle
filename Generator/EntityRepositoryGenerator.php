@@ -20,14 +20,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class <className> extends EntityRepository
 {
-    public function searchBy($criteria, $order = array("<queryAlias>.id"=> "DESC")) {
+    public function searchBy($criteria = array(), $order = array("<queryAlias>.id"=> "DESC")) {
         $qb = $this->createQueryBuilder("<queryAlias>");
 
         foreach ($criteria as $field => $value) {
 		    if (!$this->getClassMetadata()->hasField($field)) {
                 // Make sure we only use existing fields (avoid any injection)
                 continue;
-            }else {
+            } else if($value === "true" || $value === "false"){
+                $qb->andWhere($qb->expr()->eq("<queryAlias>." . $field, ":<queryAlias>_" . $field))
+                    ->setParameter(":<queryAlias>_" . $field, filter_var($value , FILTER_VALIDATE_BOOLEAN));
+            } else {
                 $qb->andWhere($qb->expr()->like("<queryAlias>." . $field, ":<queryAlias>_" . $field))
                     ->setParameter(":<queryAlias>_" . $field, "%" . $value . "%");
             }

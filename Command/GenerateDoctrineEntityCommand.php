@@ -8,6 +8,7 @@ use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineEntityCommand as Base;
 
 class GenerateDoctrineEntityCommand extends Base
 {
+
     protected function createGenerator()
     {
         return new DoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
