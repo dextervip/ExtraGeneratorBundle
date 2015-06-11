@@ -24,29 +24,29 @@
                             {%- for field, metadata in fields %}
                                 {% if metadata.type in ['boolean'] %}
                                     <div class="form-group">
-                                        <label for="input{{ field }}" class="control-label">{{ field }}: </label>
+                                        <label for="input{{ field }}" class="control-label">{{ field|capitalize }}: </label>
                                         <select class="form-control" id="input{{ field }}" name="isEnabled">
-                                            <option value="" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>All</option>
-                                            <option value="true" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>Yes</option>
-                                            <option value="false" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>No</option>
+                                            <option value="" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>{{ '{{ "All"|trans }}' }}</option>
+                                            <option value="true" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>{{ '{{ "Yes"|trans }}' }}</option>
+                                            <option value="false" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>{{ '{{ "No"|trans }}' }}</option>
                                         </select>
                                     </div>
                                 {% elseif metadata.type in ['date', 'datetime'] %}
                                     <div class="form-group">
-                                        <input type="text" class="form-control date-picker" id="input{{ field }}" placeholder="{{ field }}" name="{{ field }}" value="{{ '{{ filter.getParameterValue("'~field~'") }}' }}">
+                                        <input type="text" class="form-control date-picker" id="input{{ field }}" placeholder="{{ field|capitalize }}" name="{{ field }}" value="{{ '{{ filter.getParameterValue("'~field~'") }}' }}">
                                     </div>
                                 {% else %}
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="input{{ field }}" placeholder="{{ field }}" name="{{ field }}" value="{{ '{{ filter.getParameterValue("'~field~'") }}' }}">
+                                        <input type="text" class="form-control" id="input{{ field }}" placeholder="{{ field|capitalize }}" name="{{ field }}" value="{{ '{{ filter.getParameterValue("'~field~'") }}' }}">
                                     </div>
                                 {% endif %}
                             {%- endfor %}
                         </div>
                         <div class="col-md-3">
                             <div class="form-group btn-toolbar" style="float: right;" role="toolbar">
-                                <button type="submit" class="btn btn-danger btn-group" role="group" name="clear" value="clear"><i class="fa fa-trash-o"></i> Clear
+                                <button type="submit" class="btn btn-danger btn-group" role="group" name="clear" value="clear"><i class="fa fa-trash-o"></i> {{ '{{ "Clear"|trans }}' }}
                                 </button>
-                                <button type="submit" class="btn btn-primary btn-group" role="group"><i class="fa fa-check"></i> Apply
+                                <button type="submit" class="btn btn-primary btn-group" role="group"><i class="fa fa-check"></i> {{ '{{ "Apply"|trans }}' }}
                                 </button>
                             </div>
                         </div>
