@@ -25,10 +25,10 @@
                                 {% if metadata.type in ['boolean'] %}
                                     <div class="form-group">
                                         <label for="input{{ field }}" class="control-label">{{ field|capitalize }}: </label>
-                                        <select class="form-control" id="input{{ field }}" name="isEnabled">
+                                        <select class="form-control" id="input{{ field }}" name="{{ field }}">
                                             <option value="" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>{{ '{{ "All"|trans }}' }}</option>
-                                            <option value="true" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>{{ '{{ "Yes"|trans }}' }}</option>
-                                            <option value="false" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>{{ '{{ "No"|trans }}' }}</option>
+                                            <option value="true" {{ '{{ filter.getParameterValue("'~field~'") == "true" ? "selected" : ""}}' }}>{{ '{{ "Yes"|trans }}' }}</option>
+                                            <option value="false" {{ '{{ filter.getParameterValue("'~field~'") == "false" ? "selected" : ""}}' }}>{{ '{{ "No"|trans }}' }}</option>
                                         </select>
                                     </div>
                                 {% elseif metadata.type in ['date', 'datetime'] %}
