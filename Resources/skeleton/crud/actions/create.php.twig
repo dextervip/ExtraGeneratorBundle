@@ -17,6 +17,8 @@
 {% endblock method_definition %}
     {
 {% block method_body %}
+        $session = $request->getSession();
+
         $entity = new {{ entity_class }}();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -25,6 +27,8 @@
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $session->getFlashBag()->add('success', 'The entry has been created!');
 
             {% if 'show' in actions -%}
                 return $this->redirect($this->generateUrl('{{ route_name_prefix }}_show', array('id' => $entity->getId())));

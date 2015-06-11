@@ -17,6 +17,7 @@
 {% endblock method_definition %}
     {
 {% block method_body %}
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('{{ bundle }}:{{ entity }}')->find($id);
@@ -31,7 +32,9 @@
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('{{ route_name_prefix }}_edit', array('id' => $id)));
+            $session->getFlashBag()->add('success', 'The entry has been updated!');
+
+            return $this->redirect($this->generateUrl('{{ route_name_prefix }}_show', array('id' => $id)));
         }
 {% endblock method_body %}
 

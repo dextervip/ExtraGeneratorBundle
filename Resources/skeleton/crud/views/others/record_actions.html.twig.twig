@@ -8,7 +8,7 @@
         </a>
 {% endif %}
 {% if ('delete' in actions) and (not hide_delete) %}
-        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_delete', { 'id': entity."~ identifier ~" }) }}" }}" class="btn btn-danger btn-group" role="group">
+        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_delete', { 'id': entity."~ identifier ~" }) }}" }}" class="btn btn-danger btn-group" role="group" title="Delete" data-confirm="Are you sure you wanna delete this entry?">
             <i class="fa fa-trash-o"></i> Delete
         </a>
 {% endif %}

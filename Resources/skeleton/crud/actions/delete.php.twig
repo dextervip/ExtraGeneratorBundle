@@ -16,7 +16,7 @@
 {% endblock method_definition %}
     {
 {% block method_body %}
-
+            $session = $request->getSession();
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('{{ bundle }}:{{ entity }}')->find($id);
 
@@ -26,6 +26,9 @@
 
             $em->remove($entity);
             $em->flush();
+
+            $session->getFlashBag()->add('success', 'The entry has been deleted!');
+
 {% endblock method_body %}
 
 {% block method_return %}
