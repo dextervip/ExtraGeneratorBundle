@@ -17,9 +17,17 @@
 {% endblock method_definition %}
     {
 {% block method_body %}
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->getRepository('{{ bundle }}:{{ entity }}')->createQueryBuilder('{{ entity|first|lower }}');
+        $repository = $em->getRepository('{{ bundle }}:{{ entity }}');
+        $filter = new Filter($session,'{{ bundle|lower|replace({'bundle':''}) }}_{{ entity|lower }}_filter_');
+        $filter->setFilterParameters(array(
+        ));
+        $filter->parseCriteria($request);
+
+        $query = $repository->searchBy($filter->getCriteria());
+
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
@@ -32,10 +40,12 @@
 {% if 'annotation' == format %}
         return array(
             'entities' => $pagination,
+            'filter' => $filter,
         );
 {% else %}
         return $this->render('{{ bundle }}:{{ entity|replace({'\\': '/'}) }}:index.html.twig', array(
             'entities' => $pagination,
+            'filter' => $filter,
         ));
 {% endif %}
 {% endblock method_return %}

@@ -5,7 +5,9 @@
 {% endblock extends %}
 
 {% block body %}
-    {{ "{% block body -%}" }}
+{{ "{% block body -%}" }}
+<div class="row">
+    <div class="col-md-12">
     <h1>{{ entity }} list</h1>
 
     {% if 'new' in actions %}
@@ -13,6 +15,46 @@
             <i class="fa fa-plus"></i> New entry
         </a>
     {% endif %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Filter</div>
+            <div class="panel-body">
+                <form class="form-inline" method="POST">
+                    <div class="row">
+                        <div class="col-md-9">
+                            {%- for field, metadata in fields %}
+                                {% if metadata.type in ['boolean'] %}
+                                    <div class="form-group">
+                                        <label for="input{{ field }}" class="control-label">{{ field }}: </label>
+                                        <select class="form-control" id="input{{ field }}" name="isEnabled">
+                                            <option value="" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>All</option>
+                                            <option value="true" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>Yes</option>
+                                            <option value="false" {{ '{{ filter.getParameterValue("'~field~'") == "" ? "selected" : ""}}' }}>No</option>
+                                        </select>
+                                    </div>
+                                {% elseif metadata.type in ['date', 'datetime'] %}
+                                    <div class="form-group">
+                                        <input type="text" class="form-control date-picker" id="input{{ field }}" placeholder="{{ field }}" name="{{ field }}" value="{{ '{{ filter.getParameterValue("'~field~'") }}' }}">
+                                    </div>
+                                {% else %}
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="input{{ field }}" placeholder="{{ field }}" name="{{ field }}" value="{{ '{{ filter.getParameterValue("'~field~'") }}' }}">
+                                    </div>
+                                {% endif %}
+                            {%- endfor %}
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group btn-toolbar" style="float: right;" role="toolbar">
+                                <button type="submit" class="btn btn-danger btn-group" role="group" name="clear" value="clear"><i class="fa fa-trash-o"></i> Clear
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-group" role="group"><i class="fa fa-check"></i> Apply
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     <table class="table table-striped table-bordered table-hover">
         <thead>
@@ -61,6 +103,10 @@
             {%- endfor %}
 
         </tr>
+        {{ '{% else %}' }}
+            <tr>
+                <td colspan="{{ fields|length + 1 }}">{{ '{{ "No entries."|trans }}' }}</td>
+            </tr>
         {{ '{% endfor %}' }}
         </tbody>
     </table>
@@ -69,5 +115,7 @@
     </div>
 
 
-    {{ "{% endblock %}" }}
+    </div>
+</div>
+{{ "{% endblock %}" }}
 {% endblock body %}
