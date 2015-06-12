@@ -19,7 +19,7 @@
 
                 {%- if metadata.type in ['date', 'datetime'] %}
 
-                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'d/m/Y H:i:s\') }}' }}</td>
+                    <td>{{ '{% if entity.' ~ field|replace({'_': ''}) ~ ' %}{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'d/m/Y H:i:s\') }}{% endif %}' }}</td>
 
                 {%- elseif metadata.type in ['boolean'] %}
 
