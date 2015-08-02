@@ -4,7 +4,7 @@
 namespace {{ namespace }}\Controller{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
 {% block use_statements %}
-{% if 'new' in actions or 'edit' in actions or 'delete' in actions %}
+{% if 'new' in actions or 'edit' in actions or 'delete' in actions or 'index' in actions %}
 use Symfony\Component\HttpFoundation\Request;
 {%- endif %}
 

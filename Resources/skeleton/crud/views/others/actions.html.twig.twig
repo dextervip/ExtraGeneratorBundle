@@ -5,11 +5,11 @@
 
                         <a href="{{ "{{ path('" ~ route_name_prefix ~ "_" ~ action ~ "', { 'id': entity."~ identifier ~" }) }}" }}" class="btn btn-default btn-group" role="group">
                             {% if action == 'edit' %}
-                            <i class="fa fa-pencil-square-o"></i> {{ action }}
+                            <i class="fa fa-pencil-square-o"></i> {{ '{{ "'~ action ~'"|trans }}' }}
                             {% elseif action == 'show' %}
-                            <i class="fa fa-eye"></i> {{ action }}
+                            <i class="fa fa-eye"></i> {{ '{{ "'~ action ~'"|trans }}' }}
                             {% else %}
-                            {{ action }}
+                                {{ '{{ "'~ action ~'"|trans }}' }}
                             {% endif %}
                         </a>
 
