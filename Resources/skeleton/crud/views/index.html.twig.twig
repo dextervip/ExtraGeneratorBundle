@@ -11,12 +11,12 @@
 
     {% if 'new' in actions %}
         <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}" class="btn btn-primary">
-            <i class="fa fa-plus"></i> New entry
+            <i class="fa fa-plus"></i> {{ '{{ "New entry"|trans }}' }}
         </a>
     {% endif %}
 
         <div class="panel panel-default">
-            <div class="panel-heading">Filter</div>
+            <div class="panel-heading">{{ '{{ "Filter"|trans }}' }}</div>
             <div class="panel-body">
                 <form class="form-inline" method="POST">
                     <div class="row">
@@ -64,7 +64,7 @@
 
             {%- endfor %}
 
-            <th>Actions</th>
+            <th>{{ '{{ "Actions"|trans }}' }}</th>
         </tr>
         </thead>
         <tbody>
